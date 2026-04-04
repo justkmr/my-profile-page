@@ -1,148 +1,285 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Pintu Kumar — Full Stack Developer</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap');
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background: #010409;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 24px;
-    }
-    .terminal {
-      background: #0d1117;
-      border-radius: 14px;
-      padding: 22px 36px 30px;
-      width: 100%;
-      max-width: 820px;
-      border: 1px solid #F0DB4F55;
-      font-family: 'Fira Code', monospace;
-    }
-    .dots { display: flex; gap: 7px; margin-bottom: 22px; }
-    .dot { width: 13px; height: 13px; border-radius: 50%; }
-    .d-r { background: #ff5f57; }
-    .d-y { background: #febc2e; }
-    .d-g { background: #28c840; }
-    .divider { border: none; border-top: 1px solid #21262d; margin: 20px 0; }
-    .screen { text-align: center; min-height: 58px; }
-    .prompt { color: #6e7681; font-size: 15px; margin-bottom: 6px; }
-    .typed-text { font-size: 22px; color: #F0DB4F; letter-spacing: 0.02em; }
-    .cursor {
-      display: inline-block; width: 2px; height: 1.15em;
-      background: #F0DB4F; vertical-align: middle; margin-left: 2px;
-      animation: blink 0.7s step-end infinite;
-    }
-    @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
-    .section-label {
-      color: #6e7681; font-size: 12px; text-align: center;
-      margin-bottom: 16px; letter-spacing: 0.15em; text-transform: uppercase;
-    }
-    .skills-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
-    .skill-pill {
-      display: flex; align-items: center; gap: 8px;
-      padding: 8px 18px; border-radius: 30px;
-      font-size: 13px; font-weight: 500; border: 1px solid;
-      opacity: 0; transform: translateY(10px) scale(0.95);
-      transition: opacity 0.4s ease, transform 0.4s ease;
-      cursor: default;
-    }
-    .skill-pill.show { opacity: 1; transform: translateY(0) scale(1); }
-    .skill-pill:hover { transform: translateY(-3px) scale(1.06) !important; }
-
-    .pill-react    { color: #61DAFB; border-color: #61DAFB55; background: #61DAFB0d; box-shadow: 0 0 14px #61DAFB44; }
-    .pill-next     { color: #ffffff; border-color: #ffffff44; background: #ffffff0d; box-shadow: 0 0 14px #ffffff33; }
-    .pill-node     { color: #68A063; border-color: #68A06355; background: #68A0630d; box-shadow: 0 0 14px #68A06344; }
-    .pill-mongo    { color: #4DB33D; border-color: #4DB33D55; background: #4DB33D0d; box-shadow: 0 0 14px #4DB33D44; }
-    .pill-js       { color: #F7DF1E; border-color: #F7DF1E55; background: #F7DF1E0d; box-shadow: 0 0 14px #F7DF1E44; }
-    .pill-redux    { color: #764ABC; border-color: #764ABC55; background: #764ABC0d; box-shadow: 0 0 14px #764ABC44; }
-    .pill-docker   { color: #0db7ed; border-color: #0db7ed55; background: #0db7ed0d; box-shadow: 0 0 14px #0db7ed44; }
-    .pill-tailwind { color: #38BDF8; border-color: #38BDF855; background: #38BDF80d; box-shadow: 0 0 14px #38BDF844; }
-    .pill-git      { color: #F05033; border-color: #F0503355; background: #F053330d; box-shadow: 0 0 14px #F0503344; }
-
-    .footer { text-align: center; color: #3d444d; font-size: 12px; margin-top: 22px; }
-  </style>
-</head>
-<body>
-  <div class="terminal">
-    <div class="dots">
-      <div class="dot d-r"></div>
-      <div class="dot d-y"></div>
-      <div class="dot d-g"></div>
-    </div>
-
-    <div class="screen">
-      <div class="prompt" id="prompt"></div>
-      <div class="typed-text"><span id="typed"></span><span class="cursor"></span></div>
-    </div>
-
-    <hr class="divider">
-
-    <div class="section-label">⚡ skills</div>
-    <div class="skills-grid">
-      <span class="skill-pill pill-react">⚛ React</span>
-      <span class="skill-pill pill-next">▲ Next.js</span>
-      <span class="skill-pill pill-node">⬡ Node.js</span>
-      <span class="skill-pill pill-mongo">🍃 MongoDB</span>
-      <span class="skill-pill pill-js">JS JavaScript</span>
-      <span class="skill-pill pill-redux">🔁 Redux</span>
-      <span class="skill-pill pill-docker">🐳 Docker</span>
-      <span class="skill-pill pill-tailwind">🎨 Tailwind CSS</span>
-      <span class="skill-pill pill-git">🐙 Git</span>
-    </div>
-
-    <div class="footer">// pintu kumar • full stack developer</div>
-  </div>
-
-  <script>
-    const sequence = [
-      { prompt: "➜ ~ whoami",       text: "Pintu Kumar",                     pause: 1400 },
-      { prompt: "➜ ~ cat role.txt", text: "Full Stack Developer",            pause: 1400 },
-      { prompt: "➜ ~ echo $MOTTO",  text: "Code. Build. Repeat. 🚀",         pause: 1800 },
-      { prompt: "➜ ~ git status",   text: "Always learning, never stopping.", pause: 1800 },
-    ];
-
-    let si = 0, ci = 0, deleting = false, badgesStarted = false;
-    const typedEl = document.getElementById('typed');
-    const promptEl = document.getElementById('prompt');
-
-    function showBadgesOneByOne() {
-      document.querySelectorAll('.skill-pill').forEach((p, i) => {
-        setTimeout(() => p.classList.add('show'), i * 400);
-      });
-    }
-
-    function tick() {
-      const { text, pause } = sequence[si];
-      promptEl.textContent = sequence[si].prompt;
-      if (!deleting) {
-        ci++;
-        typedEl.textContent = text.slice(0, ci);
-        if (ci === text.length) {
-          if (!badgesStarted) { badgesStarted = true; showBadgesOneByOne(); }
-          deleting = true;
-          setTimeout(tick, pause);
-          return;
-        }
-        setTimeout(tick, 65);
-      } else {
-        ci--;
-        typedEl.textContent = text.slice(0, ci);
-        if (ci === 0) {
-          deleting = false;
-          si = (si + 1) % sequence.length;
-          setTimeout(tick, 350);
-          return;
-        }
-        setTimeout(tick, 28);
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pintu Kumar —> Full Stack Developer</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap");
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
       }
-    }
-    tick();
-  </script>
-</body>
+      body {
+        background: #010409;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 24px;
+      }
+      .terminal {
+        background: #0d1117;
+        border-radius: 14px;
+        padding: 22px 36px 30px;
+        width: 100%;
+        max-width: 820px;
+        border: 1px solid #f0db4f55;
+        font-family: "Fira Code", monospace;
+      }
+      .dots {
+        display: flex;
+        gap: 7px;
+        margin-bottom: 22px;
+      }
+      .dot {
+        width: 13px;
+        height: 13px;
+        border-radius: 50%;
+      }
+      .d-r {
+        background: #ff5f57;
+      }
+      .d-y {
+        background: #febc2e;
+      }
+      .d-g {
+        background: #28c840;
+      }
+      .divider {
+        border: none;
+        border-top: 1px solid #21262d;
+        margin: 20px 0;
+      }
+      .screen {
+        text-align: center;
+        min-height: 58px;
+      }
+      .prompt {
+        color: #6e7681;
+        font-size: 15px;
+        margin-bottom: 6px;
+      }
+      .typed-text {
+        font-size: 22px;
+        color: #f0db4f;
+        letter-spacing: 0.02em;
+      }
+      .cursor {
+        display: inline-block;
+        width: 2px;
+        height: 1.15em;
+        background: #f0db4f;
+        vertical-align: middle;
+        margin-left: 2px;
+        animation: blink 0.7s step-end infinite;
+      }
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+      }
+      .section-label {
+        color: #6e7681;
+        font-size: 12px;
+        text-align: center;
+        margin-bottom: 16px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+      }
+      .skills-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+      }
+      .skill-pill {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 18px;
+        border-radius: 30px;
+        font-size: 13px;
+        font-weight: 500;
+        border: 1px solid;
+        opacity: 0;
+        transform: translateY(10px) scale(0.95);
+        transition:
+          opacity 0.4s ease,
+          transform 0.4s ease;
+        cursor: default;
+      }
+      .skill-pill.show {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+      .skill-pill:hover {
+        transform: translateY(-3px) scale(1.06) !important;
+      }
+
+      .pill-react {
+        color: #61dafb;
+        border-color: #61dafb55;
+        background: #61dafb0d;
+        box-shadow: 0 0 14px #61dafb44;
+      }
+      .pill-next {
+        color: #ffffff;
+        border-color: #ffffff44;
+        background: #ffffff0d;
+        box-shadow: 0 0 14px #ffffff33;
+      }
+      .pill-node {
+        color: #68a063;
+        border-color: #68a06355;
+        background: #68a0630d;
+        box-shadow: 0 0 14px #68a06344;
+      }
+      .pill-mongo {
+        color: #4db33d;
+        border-color: #4db33d55;
+        background: #4db33d0d;
+        box-shadow: 0 0 14px #4db33d44;
+      }
+      .pill-js {
+        color: #f7df1e;
+        border-color: #f7df1e55;
+        background: #f7df1e0d;
+        box-shadow: 0 0 14px #f7df1e44;
+      }
+      .pill-redux {
+        color: #764abc;
+        border-color: #764abc55;
+        background: #764abc0d;
+        box-shadow: 0 0 14px #764abc44;
+      }
+      .pill-docker {
+        color: #0db7ed;
+        border-color: #0db7ed55;
+        background: #0db7ed0d;
+        box-shadow: 0 0 14px #0db7ed44;
+      }
+      .pill-tailwind {
+        color: #38bdf8;
+        border-color: #38bdf855;
+        background: #38bdf80d;
+        box-shadow: 0 0 14px #38bdf844;
+      }
+      .pill-git {
+        color: #f05033;
+        border-color: #f0503355;
+        background: #f053330d;
+        box-shadow: 0 0 14px #f0503344;
+      }
+
+      .footer {
+        text-align: center;
+        color: #3d444d;
+        font-size: 12px;
+        margin-top: 22px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="terminal">
+      <div class="dots">
+        <div class="dot d-r"></div>
+        <div class="dot d-y"></div>
+        <div class="dot d-g"></div>
+      </div>
+
+      <div class="screen">
+        <div class="prompt" id="prompt"></div>
+        <div class="typed-text">
+          <span id="typed"></span><span class="cursor"></span>
+        </div>
+      </div>
+
+      <hr class="divider" />
+
+      <div class="section-label">⚡ skills</div>
+      <div class="skills-grid">
+        <span class="skill-pill pill-react">⚛ React</span>
+        <span class="skill-pill pill-next">▲ Next.js</span>
+        <span class="skill-pill pill-node">⬡ Node.js</span>
+        <span class="skill-pill pill-mongo">🍃 MongoDB</span>
+        <span class="skill-pill pill-js">JS JavaScript</span>
+        <span class="skill-pill pill-redux">🔁 Redux</span>
+        <span class="skill-pill pill-docker">🐳 Docker</span>
+        <span class="skill-pill pill-tailwind">🎨 Tailwind CSS</span>
+        <span class="skill-pill pill-git">🐙 Git</span>
+      </div>
+
+      <div class="footer">// pintu kumar • full stack developer</div>
+    </div>
+
+    <script>
+      const sequence = [
+        { prompt: "➜ ~ whoami", text: "Pintu Kumar", pause: 1400 },
+        {
+          prompt: "➜ ~ cat role.txt",
+          text: "Full Stack Developer",
+          pause: 1400,
+        },
+        {
+          prompt: "➜ ~ echo $MOTTO",
+          text: "Code. Build. Repeat. 🚀",
+          pause: 1800,
+        },
+        {
+          prompt: "➜ ~ git status",
+          text: "Always learning, never stopping.",
+          pause: 1800,
+        },
+      ];
+
+      let si = 0,
+        ci = 0,
+        deleting = false,
+        badgesStarted = false;
+      const typedEl = document.getElementById("typed");
+      const promptEl = document.getElementById("prompt");
+
+      function showBadgesOneByOne() {
+        document.querySelectorAll(".skill-pill").forEach((p, i) => {
+          setTimeout(() => p.classList.add("show"), i * 400);
+        });
+      }
+
+      function tick() {
+        const { text, pause } = sequence[si];
+        promptEl.textContent = sequence[si].prompt;
+        if (!deleting) {
+          ci++;
+          typedEl.textContent = text.slice(0, ci);
+          if (ci === text.length) {
+            if (!badgesStarted) {
+              badgesStarted = true;
+              showBadgesOneByOne();
+            }
+            deleting = true;
+            setTimeout(tick, pause);
+            return;
+          }
+          setTimeout(tick, 65);
+        } else {
+          ci--;
+          typedEl.textContent = text.slice(0, ci);
+          if (ci === 0) {
+            deleting = false;
+            si = (si + 1) % sequence.length;
+            setTimeout(tick, 350);
+            return;
+          }
+          setTimeout(tick, 28);
+        }
+      }
+      tick();
+    </script>
+  </body>
 </html>
