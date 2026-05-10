@@ -40,22 +40,32 @@
     }
     @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
     .section-label {
-      color: #6e7681; font-size: 13px; text-align: center;
-      margin-bottom: 14px; letter-spacing: 0.08em;
+      color: #6e7681; font-size: 12px; text-align: center;
+      margin-bottom: 16px; letter-spacing: 0.15em; text-transform: uppercase;
     }
-    .badge-row { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; }
-    .badge {
-      font-family: 'Fira Code', monospace;
-      font-size: 13px; padding: 6px 16px;
-      border-radius: 20px;
-      border: 1px solid #F0DB4F44;
-      color: #F0DB4F;
-      background: #F0DB4F0f;
-      opacity: 0; transform: translateY(8px) scale(0.95);
-      transition: opacity 0.35s ease, transform 0.35s ease;
+    .skills-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+    .skill-pill {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 18px; border-radius: 30px;
+      font-size: 13px; font-weight: 500; border: 1px solid;
+      opacity: 0; transform: translateY(10px) scale(0.95);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      cursor: default;
     }
-    .badge.show { opacity: 1; transform: translateY(0) scale(1); }
-    .footer { text-align: center; color: #3d444d; font-size: 12px; margin-top: 20px; }
+    .skill-pill.show { opacity: 1; transform: translateY(0) scale(1); }
+    .skill-pill:hover { transform: translateY(-3px) scale(1.06) !important; }
+
+    .pill-react    { color: #61DAFB; border-color: #61DAFB55; background: #61DAFB0d; box-shadow: 0 0 14px #61DAFB44; }
+    .pill-next     { color: #ffffff; border-color: #ffffff44; background: #ffffff0d; box-shadow: 0 0 14px #ffffff33; }
+    .pill-node     { color: #68A063; border-color: #68A06355; background: #68A0630d; box-shadow: 0 0 14px #68A06344; }
+    .pill-mongo    { color: #4DB33D; border-color: #4DB33D55; background: #4DB33D0d; box-shadow: 0 0 14px #4DB33D44; }
+    .pill-js       { color: #F7DF1E; border-color: #F7DF1E55; background: #F7DF1E0d; box-shadow: 0 0 14px #F7DF1E44; }
+    .pill-redux    { color: #764ABC; border-color: #764ABC55; background: #764ABC0d; box-shadow: 0 0 14px #764ABC44; }
+    .pill-docker   { color: #0db7ed; border-color: #0db7ed55; background: #0db7ed0d; box-shadow: 0 0 14px #0db7ed44; }
+    .pill-tailwind { color: #38BDF8; border-color: #38BDF855; background: #38BDF80d; box-shadow: 0 0 14px #38BDF844; }
+    .pill-git      { color: #F05033; border-color: #F0503355; background: #F053330d; box-shadow: 0 0 14px #F0503344; }
+
+    .footer { text-align: center; color: #3d444d; font-size: 12px; margin-top: 22px; }
   </style>
 </head>
 <body>
@@ -65,23 +75,27 @@
       <div class="dot d-y"></div>
       <div class="dot d-g"></div>
     </div>
+
     <div class="screen">
       <div class="prompt" id="prompt"></div>
       <div class="typed-text"><span id="typed"></span><span class="cursor"></span></div>
     </div>
+
     <hr class="divider">
+
     <div class="section-label">⚡ skills</div>
-    <div class="badge-row">
-      <span class="badge">⚛ React</span>
-      <span class="badge">▲ Next.js</span>
-      <span class="badge">⬡ Node.js</span>
-      <span class="badge">🍃 MongoDB</span>
-      <span class="badge">JS JavaScript</span>
-      <span class="badge">🔁 Redux</span>
-      <span class="badge">🐳 Docker</span>
-      <span class="badge">🎨 Tailwind CSS</span>
-      <span class="badge">🐙 Git</span>
+    <div class="skills-grid">
+      <span class="skill-pill pill-react">⚛ React</span>
+      <span class="skill-pill pill-next">▲ Next.js</span>
+      <span class="skill-pill pill-node">⬡ Node.js</span>
+      <span class="skill-pill pill-mongo">🍃 MongoDB</span>
+      <span class="skill-pill pill-js">JS JavaScript</span>
+      <span class="skill-pill pill-redux">🔁 Redux</span>
+      <span class="skill-pill pill-docker">🐳 Docker</span>
+      <span class="skill-pill pill-tailwind">🎨 Tailwind CSS</span>
+      <span class="skill-pill pill-git">🐙 Git</span>
     </div>
+
     <div class="footer">// pintu kumar • full stack developer</div>
   </div>
 
@@ -96,11 +110,10 @@
     let si = 0, ci = 0, deleting = false, badgesStarted = false;
     const typedEl = document.getElementById('typed');
     const promptEl = document.getElementById('prompt');
-    const badges = document.querySelectorAll('.badge');
 
     function showBadgesOneByOne() {
-      badges.forEach((b, i) => {
-        setTimeout(() => b.classList.add('show'), i * 2000);
+      document.querySelectorAll('.skill-pill').forEach((p, i) => {
+        setTimeout(() => p.classList.add('show'), i * 400);
       });
     }
 
