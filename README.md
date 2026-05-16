@@ -1,3 +1,3 @@
-https://pintu-kumar-1709.github.io/my-profile-page/
+https://justkmr.github.io/my-profile-page/
 
 
